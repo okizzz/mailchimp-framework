@@ -1,0 +1,22 @@
+{
+  "name": "mailchimp-campaigns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "type": "module",
+  "author": "okizzz",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "mailchimp-api-v3": "^1.14.0",
+    "mongoose": "^5.9.23",
+    "node-telegram-bot-api": "^0.50.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
