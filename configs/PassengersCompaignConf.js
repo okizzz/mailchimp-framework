@@ -2,7 +2,7 @@ export default {
   listId: "64babb97f3",
   subjectLineEmail: "AEZAKMI Browser Team",
   previewTextEmail: "Yo Bro!",
-  compaignName: `Aezakmi passenger automate(test) ${new Date(
+  compaignName: `Aezakmi passenger automate ${new Date(
     new Date().setHours(0, 0, 0, 0) - 172800000,
   ).toLocaleDateString()}`,
   templateId: 228616,
