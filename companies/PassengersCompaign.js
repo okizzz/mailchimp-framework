@@ -6,10 +6,10 @@ export default function startCompaignPassengers(
   MongooseMethods,
   TelegramBotMethods,
   async,
-  dotenv,
+  configEnv,
   startWriteLog,
 ) {
-  dotenv.config()
+  configEnv
   const mailchimpMethods = new MailchimpMethods(
     process.env.API_KEY_MAILCHIMP,
     config.listId,
