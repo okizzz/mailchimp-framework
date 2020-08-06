@@ -126,7 +126,7 @@ export default function startCompaign(
         },
         (err, compaignStatus) => {
           if (err) {
-            startWriteLog(err, 4, telegramBotMethods);
+            startWriteLog(err, 5, telegramBotMethods);
             return;
           }
           startWriteLog(
