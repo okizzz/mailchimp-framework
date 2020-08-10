@@ -28,6 +28,70 @@
 
 **.env** - файл с приватными константами
 
+
+## Как работает startCompaign()
+
+**async.waterfall**
+
+Все операции по старту компании выполняются строго последовательно с помощью метода waterfall библиотеки async. 
+Waterfall принимает в себя массив асинхронных функций и выполняет их сверху вниз передавая результат следующей функции. 
+Принцип работы async.waterfall заключается в запуске callback(next) в конце каждой функции, 
+она передает в качестве первого аргумента ошибку и последующие аргументы это резултаты, 
+если err то запуск последовательности останавливается, eсли result то продолжается. Пример:
+
+```javascript 
+async.waterfall(
+  [
+    function (callback) {
+      console.log("step1")
+      callback(null, "one", "two");
+    },
+    function (arg1, arg2, callback) {
+      // arg1 now equals 'one' and arg2 now equals 'two'
+      console.log("step2")
+      callback(null, "three");
+    },
+    function (arg1, callback) {
+      // arg1 now equals 'three'
+      console.log("step3")
+      callback(null, "done");
+    },
+  ],
+  function (err, result) {
+    console.log("done")
+    // result now equals 'done'
+  },
+);
+```
+**async.retry**
+
+Каждая функция которая выполняется оборачивается в async.retry. 
+Это позволяет повторять выполнение функции при ее ошибке, 
+при удачном выполнении вызывать callback(next) async.waterfall или же когда все попытки исчерпаны, 
+вызвать регистратор логов StartWriteLog и выйти из структуры. Повторение зависит от обратного вызова внутри нашей функции. 
+Если первый аргумент обратного вызова не является ложным, он будет повторен на основе настроек times и interval. Пример:
+
+```javascript 
+let count = 0;
+let functionData = { some: 'data' };
+let myFunction = function(callback, results) {
+  console.log(++count);
+  process.nextTick(function() {
+    if (count < 5) { // Fail 5 times
+      return callback({ message: 'this failed' }, null);
+    }
+    callback(null, { message: 'this succeeded' });
+  });
+};
+
+async.retry({times : 25, interval : 1000}, myFunction.bind(functionData), function(err, results) {
+  console.log("===================================")
+  console.log("Async function finished processing")
+  return;
+});
+```
+
+
 ## Системные требования
 ```
 node v12.18.3 и выше
