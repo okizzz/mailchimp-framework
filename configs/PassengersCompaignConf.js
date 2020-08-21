@@ -33,4 +33,5 @@ export default {
     ],
     license: "passenger",
   },
+  envName: ".env",
 };

@@ -1,16 +1,12 @@
 import dotenv from "dotenv";
-import startCompaignPassengers from "./companies/PassengersCompaign.js";
 import async from "async";
+import startCompaignPassengers from "./companies/PassengersCompaign.js";
 import MailchimpMethods from "./mailchimp/MailchimpMethods.js";
 import MongooseMethods from "./mongo/MongooseMethods.js";
 import TelegramBotMethods from "./telegramBot/TelegramBotMethods.js";
 import startWriteLog from "./logging/StartWriteLog.js";
-const configEnv = dotenv.config({
-  path: process.argv[1].replace("index.js", ".env"),
-});
-const arg = process.argv[2];
 
-switch (arg) {
+switch (process.argv[2]) {
   case "--help":
     console.dir({
       Help: "--help",
@@ -23,7 +19,7 @@ switch (arg) {
       MongooseMethods,
       TelegramBotMethods,
       async,
-      configEnv,
+      dotenv,
       startWriteLog,
     );
     break;

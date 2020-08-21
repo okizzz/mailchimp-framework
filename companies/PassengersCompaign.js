@@ -1,36 +1,51 @@
 import config from "../configs/PassengersCompaignConf.js";
 import startCompaign from "../controllers/StartCompaign.js";
 
+const { API_KEY_MAILCHIMP, DB_URL, API_KEY_BOT, CHAT_ID } = process.env;
+const {
+  listId,
+  subjectLineEmail,
+  previewTextEmail,
+  compaignName,
+  templateId,
+  dbName,
+  objConfMongoConnect,
+  modelName,
+  objConfMongoModel,
+  collectionName,
+  querydb,
+  envName,
+} = config;
+
 export default function startCompaignPassengers(
   MailchimpMethods,
   MongooseMethods,
   TelegramBotMethods,
   async,
-  configEnv,
+  dotenv,
   startWriteLog,
 ) {
-  configEnv
+  dotenv.config({ path: process.argv[1].replace("index.js", envName) });
+
   const mailchimpMethods = new MailchimpMethods(
-    process.env.API_KEY_MAILCHIMP,
-    config.listId,
-    config.subjectLineEmail,
-    config.previewTextEmail,
-    config.compaignName,
-    config.templateId,
+    API_KEY_MAILCHIMP,
+    listId,
+    subjectLineEmail,
+    previewTextEmail,
+    compaignName,
+    templateId,
   );
   const mongooseMethods = new MongooseMethods(
-    process.env.DB_URL,
-    config.dbName,
-    config.objConfMongoConnect,
-    config.modelName,
-    config.objConfMongoModel,
-    config.collectionName,
-    config.querydb,
+    DB_URL,
+    dbName,
+    objConfMongoConnect,
+    modelName,
+    objConfMongoModel,
+    collectionName,
+    querydb,
   );
-  const telegramBotMethods = new TelegramBotMethods(
-    process.env.API_KEY_BOT,
-    process.env.CHAT_ID,
-  );
+  const telegramBotMethods = new TelegramBotMethods(API_KEY_BOT, CHAT_ID);
+
   startCompaign(
     mailchimpMethods,
     mongooseMethods,

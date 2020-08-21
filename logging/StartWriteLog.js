@@ -3,7 +3,7 @@ export default function startWriteLog(msg, exitCode, telegramBotMethods) {
     telegramBotMethods.sendMsgChat(
       `Mailchimp script sucefully. Message: ${msg} Key: ${
         process.argv[2]
-      }. Date: ${new Date().toLocaleString("ru-Ru", {
+      }. Date: ${new Date().toLocaleString("ru", {
         timeZone: "Europe/Moscow",
       })}`,
     );
@@ -11,7 +11,7 @@ export default function startWriteLog(msg, exitCode, telegramBotMethods) {
     telegramBotMethods.sendMsgChat(
       `Mailchimp script error. ExitCode: ${exitCode}. Key: ${
         process.argv[2]
-      }. Please check log file. Date: ${new Date().toLocaleString("ru-Ru", {
+      }. Please check log file. Date: ${new Date().toLocaleString("ru", {
         timeZone: "Europe/Moscow",
       })}`,
     );
